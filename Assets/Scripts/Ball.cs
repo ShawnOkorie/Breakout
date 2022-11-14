@@ -57,6 +57,18 @@ public class Ball : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             myRigidbody2D.velocity *= speedMultiplier;
+           
+            float hitdistance = transform.position.y - col.transform.position.y;
+            
+            float nHitdistance = hitdistance / col.collider.bounds.extents.y;
+            
+            Vector2 nDirection = myRigidbody2D.velocity.normalized;
+            
+            nDirection.y += nHitdistance;
+            
+            nDirection.Normalize();
+            
+            myRigidbody2D.velocity = nDirection * myRigidbody2D.velocity.magnitude;
         }
         
         if (col.gameObject.CompareTag("Finish"))
