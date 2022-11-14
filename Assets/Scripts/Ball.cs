@@ -18,7 +18,6 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         print("Press Space to Start");
-        print("test");
     }
 
     private void Update()
