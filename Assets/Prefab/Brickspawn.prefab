@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &977778831408563831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 977778831408563824}
+  - component: {fileID: 977778831408563825}
+  m_Layer: 0
+  m_Name: Brickspawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &977778831408563824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977778831408563831}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &977778831408563825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977778831408563831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ba5c416d5c40041b0f2d4f4c622064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickPrefab: {fileID: 7739474095457312544, guid: cf36e338ab409c24ab553bb2759da93e, type: 3}
+  row: 7
+  column: 17
+  cDistance: 0.5
+  colors:
+  - {r: 0.7075472, g: 0.29157433, b: 0.030037368, a: 0}
+  - {r: 0.6847898, g: 0.031372547, b: 0.7058824, a: 0}
+  - {r: 0.027189402, g: 0.4433962, b: 0.07558557, a: 0}
+  - {r: 0.042334065, g: 0.031372547, b: 0.7058824, a: 0}
+  - {r: 0.031372547, g: 0.6277969, b: 0.7058824, a: 0}
+  - {r: 0.7058824, g: 0.66165453, b: 0.031372547, a: 0}
+  - {r: 0.7058824, g: 0.038263075, b: 0.031372547, a: 0}
+  - {r: 0.35219982, g: 0.031372547, b: 0.7058824, a: 0}
+  - {r: 0.031372547, g: 0.7058824, b: 0.28201762, a: 0}
