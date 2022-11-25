@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour
         myRigidbody2D.position = Vector2.zero;
         
     }
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
@@ -60,7 +60,7 @@ public class Ball : MonoBehaviour
            
             float hitdistance = transform.position.y - col.transform.position.y;
             
-            float nHitdistance = hitdistance / col.collider.bounds.extents.y;
+            float nHitdistance = hitdistance / col.bounds.extents.y;
             
             Vector2 nDirection = myRigidbody2D.velocity.normalized;
             

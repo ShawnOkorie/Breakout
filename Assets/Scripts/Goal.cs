@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
 
 
     public class Goal : MonoBehaviour
     {
-        private Rigidbody2D myRigidbody2D;
-        private object z;
+        public TextMeshProUGUI textRef;
+        private int score;
 
-        private void Awake()
+        private void Start()
         {
-            myRigidbody2D = GetComponent<Rigidbody2D>();
+            textRef.text = "0";
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter2D(Collider2D col)
         {
-            print("Player" + z + " Goal");
+            score++;
+            textRef.text = score.ToString();
         }
     }
 
