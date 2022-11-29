@@ -10,7 +10,8 @@ public class BallB : MonoBehaviour
     public float speed = 10f;
     private int startDir;
     private bool spacekeyState;
-
+    private Vector2 bStart;
+    private Vector2 bvStart;
     private void Awake()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
@@ -19,7 +20,8 @@ public class BallB : MonoBehaviour
 
     private void Start()
     {
-        print("Press Space to Start");
+        bStart = transform.position;
+        bvStart = myRigidbody2D.velocity;
     }
 
     private void Update()
@@ -50,18 +52,30 @@ public class BallB : MonoBehaviour
 
     public void ResetBall()
     {
-        myRigidbody2D.velocity = Vector2.zero;
-        myRigidbody2D.position = Vector2.zero;
+        transform.position = bStart;
+        myRigidbody2D.velocity = bvStart;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             myRigidbody2D.velocity *= speedMultiplier;
+           
+            float hitdistance = transform.position.x - collision.transform.position.x;
+            
+            float nHitdistance = hitdistance / collision.bounds.extents.x;
+            
+            Vector2 nDirection = myRigidbody2D.velocity.normalized;
+            
+            nDirection.y += nHitdistance;
+            
+            nDirection.Normalize();
+            
+            myRigidbody2D.velocity = nDirection * myRigidbody2D.velocity.magnitude;
         }
         
-        if (col.gameObject.CompareTag("Finish"))
+        if (collision.gameObject.CompareTag("Finish"))
         {
             ResetBall();
         }
