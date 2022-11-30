@@ -1,79 +1,79 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Ball : MonoBehaviour
+public class Ball : MonoBehaviour                                             //Behaviour of the Ball
 {
-    private BoxCollider2D myCollider;
     private Rigidbody2D myRigidbody2D;
+    private Vector2 bStart;
+    private Vector2 bvStart;
     public float speedMultiplier = 1.05f;
     public float speed = 10f;
     private int startDir;
-    private bool spacekeyState;
+
     private void Awake()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
-        myCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
     {
-        print("Press Space to Start");
+        bStart = transform.position;                                  
+        bvStart = myRigidbody2D.velocity;
     }
 
-    private void Update()
+    private void Update()                                                    //Check if Ball can be launched
     {
         if (myRigidbody2D.velocity == Vector2.zero)
-        {
-            spacekeyState = Input.GetKeyDown(KeyCode.Space);
-            if (spacekeyState == true)
+        { 
+            if (Input.GetKeyDown(KeyCode.Space))                             
             {
                 LaunchBall();
-            } 
+            }
         }
     }
 
-    private void LaunchBall()
+    private void LaunchBall()                                                //Launching Ball randomly left or right
     {
-        startDir = Random.Range(0,2);
+        startDir = Random.Range(0, 2);
         switch (startDir)
         {
             case 0:
-                myRigidbody2D.velocity = Vector2.left * speed + Vector2.up * speed;
+                myRigidbody2D.velocity = Vector2.right * speed + Vector2.down * speed;
                 break;
             case 1:
-                myRigidbody2D.velocity = Vector2.right * speed + Vector2.down * speed;
+                myRigidbody2D.velocity = Vector2.left * speed + Vector2.down * speed;
                 break;
         }
     }
 
-    private void ResetBall()
+    public void ResetBall()                                                  //Resets Ball to starting Velocity and Position
     {
-        myRigidbody2D.velocity = Vector2.zero;
-        myRigidbody2D.position = Vector2.zero;
-        
+        transform.position = bStart;
+        myRigidbody2D.velocity = bvStart;
     }
-    private void OnTriggerEnter2D(Collider2D col)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))                       //Improved Ball Bounce Patterns
         {
             myRigidbody2D.velocity *= speedMultiplier;
            
-            float hitdistance = transform.position.y - col.transform.position.y;
+            float hitdistance = transform.position.x - collision.transform.position.x;
             
-            float nHitdistance = hitdistance / col.bounds.extents.y;
+            float nHitdistance = hitdistance / collision.bounds.extents.x;
             
             Vector2 nDirection = myRigidbody2D.velocity.normalized;
             
-            nDirection.y += nHitdistance;
+            nDirection.x += nHitdistance;
             
             nDirection.Normalize();
             
             myRigidbody2D.velocity = nDirection * myRigidbody2D.velocity.magnitude;
         }
         
-        if (col.gameObject.CompareTag("Finish"))
+        if (collision.gameObject.CompareTag("Finish"))
         {
             ResetBall();
         }
     }
-}
+}   

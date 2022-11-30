@@ -1,19 +1,19 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 public class BrickSpawn : MonoBehaviour
 {
     public GameObject brickPrefab;
     private SpriteRenderer sprite;
+    private Vector2 startP;
+    public Color[] colors;
+    private GameObject [,] brickArray;
     public int row = 6;
     public int column = 17;
     public float cDistance = 0.5f;
     public float rDistanceR = 1.5f;
     private float rDistanceL;
     private int rColor;
-    private Vector2 startP;
-    public Color[] colors;
-    private GameObject [,] brickArray;
+    
     void Start()
     {
         startP = transform.position;
@@ -21,13 +21,8 @@ public class BrickSpawn : MonoBehaviour
         brickArray = new GameObject[row, column];
         Spawn();
     }
-
-    public void Restart()
-    {
-        Start();
-    }
-
-    public void Spawn()
+    
+    public void Spawn()                                             //Spawns Bricks and chooses a random colour for every row 
     { 
         for (int i = 0; i < row; i++)
         {
@@ -45,7 +40,7 @@ public class BrickSpawn : MonoBehaviour
         transform.position = startP;
     }
 
-    public void DestroyBricks()
+    public void DestroyBricks()                                     //Deletes every Brick
     {
         for (int i = 0; i < row; i++)
         {
