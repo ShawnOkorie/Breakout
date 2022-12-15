@@ -1,18 +1,38 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Brick : MonoBehaviour
 {
-    public int instanceCount;
-
-    private void Awake()
+    private BrickSpawn spawner;
+    public Sprite damagedSprite;
+    private int brickHP;
+    
+    public void SetSpawner(BrickSpawn brickSpawn)
     {
-        instanceCount++;
+        spawner = brickSpawn;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnEnable()
     {
-        gameObject.SetActive(false);
-        instanceCount--;
+        brickHP = Random.Range(1,3);
+    }
+
+    public int ApplyDamage()
+    {
+        brickHP--;
+        if (brickHP > 0)
+        {
+            GetComponent<SpriteRenderer>().sprite = damagedSprite;
+        }
+        
+        if (brickHP <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+        spawner.OnBrickHit(this);
+        
+        return brickHP;
     }
     
 }

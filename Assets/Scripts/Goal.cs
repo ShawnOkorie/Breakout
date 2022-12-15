@@ -3,48 +3,66 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    public TextMeshProUGUI textRef;
+    public TextMeshProUGUI textRef0;
+    public TextMeshProUGUI textRef1;
     public GameObject text0;
-    public BrickSpawn brickSpawner;
+    public GameObject text1;
     public int lives = 5;
     private int startlives;
-    private bool ingame;
-    public void Awake()
-    {
-        
-    }
-    private void Start()
+    private void Awake()
     {
         startlives = lives;
-        textRef.text = "Press Space to Start \n \n Lives: " + lives;
+    }
+    private void OnEnable()
+    {
+        GameStateManager.OnGameStateChanged += OnGameStateChanged;
     }
 
-    public void Update()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && ingame == false)                   //Disabling the text when the Ball Starts moving
+        GameStateManager.OnGameStateChanged -= OnGameStateChanged;
+    }
+    private void OnGameStateChanged(GameStateManager.GameState targetstate)
+    {
+        switch (targetstate)
         {
-            text0.SetActive(false);
-            ingame = true;
+            case GameStateManager.GameState.ready:
+                text0.SetActive(true);
+                text1.SetActive(false);
+                textRef0.text = "Press Space to Start \n \n Lives: " + lives;
+                break;
+            
+            case GameStateManager.GameState.playing:
+                text0.SetActive(false);
+                break;
+            
+            case GameStateManager.GameState.win:
+                text1.SetActive(true);
+                lives = startlives; 
+                break;
+            
+            case GameStateManager.GameState.lose:
+                text0.SetActive(true);
+                lives = startlives; 
+                break;
+            
+            default: break;
         }
     }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
        
         if (col.gameObject.CompareTag("Ball"))                                 
         {
+            GameStateManager.Instance.SetCurrentState(GameStateManager.GameState.ready);
             lives--;
-            text0.SetActive(true);
-            textRef.text = "Press Space to Start \n \n Lives:" + lives;
-            ingame = false;
+            textRef0.text = "Press Space to Start \n \n Lives:" + lives;
         }
-
+        
+        
         if (lives <= 0)                                                         //Restart the Game when out of Lives
         {
-            lives = startlives;
-            textRef.text = "Press Space to Start \n \n Lives:" + lives;
-            brickSpawner.DestroyBricks();
-            brickSpawner.Spawn();
+            GameStateManager.Instance.SetCurrentState(GameStateManager.GameState.lose);
         }
     }
 }

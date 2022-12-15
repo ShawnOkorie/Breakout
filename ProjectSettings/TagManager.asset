@@ -7,11 +7,12 @@ TagManager:
   - Wall
   - Ball
   - Goal
+  - Brick
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - brick
   - Water
   - UI
   - 
