@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textRef0: {fileID: 518366891}
-  textRef1: {fileID: 518366891}
+  textRef1: {fileID: 1745324988}
   text0: {fileID: 397147449}
   text1: {fileID: 988078301}
   lives: 3
@@ -5564,7 +5564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563824, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.37
+      value: -5.42
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563824, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6275,6 +6275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleCount: 20
+  explosionPrefab: {fileID: 6619022686083579178, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
 --- !u!1 &1582782703
 GameObject:
   m_ObjectHideFlags: 0
@@ -6436,12 +6437,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMultiplier: 1.01
   speed: 8
-  powerupCount: 5
+  speedIncrease: 1
+  powerupCount: 1
   powerupDuration: 5
   explosionSize: 1.5
   brickMask:
     serializedVersion: 2
     m_Bits: 8
+  explosion: {fileID: 0}
+  powerupActive: 0
 --- !u!50 &1659040373
 Rigidbody2D:
   serializedVersion: 4
@@ -6603,10 +6607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Victory!
-
-
-    Press Space to Restart'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7148,6 +7149,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1480018201569082638
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.1606386
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.3400292
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -324.88934
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021074, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480018201032021079, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+      propertyPath: m_Name
+      value: ExplosionvVFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6619022686083579178, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 91e097154c6b05f43bc4e5d5dc093ce2, type: 3}
 --- !u!1001 &3475735240980134749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7169,7 +7228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3645299915065266409, guid: 237cca0e443f25f4788b9cbe728dd395, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -319.06842
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3645299915065266409, guid: 237cca0e443f25f4788b9cbe728dd395, type: 3}
       propertyPath: m_LocalRotation.w

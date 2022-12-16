@@ -8,11 +8,14 @@ public class Ball : MonoBehaviour                                             //
     public event BallDelegate OnBallCollision;
     public delegate void PowerUpDelegate(bool isActive);
     public event PowerUpDelegate PowerupActive;
+    public delegate void ExplosionDelegate(Vector2 ballLocation);
+    public event ExplosionDelegate PowerupHit;
     private Rigidbody2D myRigidbody2D;
-    private Vector2 bStart;
-    private Vector2 bvStart;
+    private Vector2 bposStart;
+    private Vector2 bvelStart;
     public float speedMultiplier = 1.05f;
     public float speed = 10f;
+    public float speedIncrease = 1f;
     public int powerupCount = 5;
     public float powerupDuration = 3;
     private int destroyCount; 
@@ -20,6 +23,8 @@ public class Ball : MonoBehaviour                                             //
     private  bool timerStart = false;
     public float explosionSize = 3f;
     public LayerMask brickMask;
+    public Explosion explosion;
+    public  bool powerupActive = false;
     private void Awake()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
@@ -27,25 +32,21 @@ public class Ball : MonoBehaviour                                             //
     private void Start()
     {
         PowerupActive?.Invoke(false);
-        bStart = transform.position;                                  
-        bvStart = myRigidbody2D.velocity;
+        bposStart = transform.position;                                  
+        bvelStart = myRigidbody2D.velocity;
     }
 
     private void Update()
     {
         if (timerStart)
         {
-            if (powerupTimer >= 0)
+            if (powerupTimer >= 0 && powerupActive)
             {
                 powerupTimer -= Time.deltaTime; 
             }
             else
             {
-                PowerupActive?.Invoke(false);
-                print("stop");
-                GetComponent<SpriteRenderer>().color = Color.white;
-                timerStart = false;
-                destroyCount = 0;  
+                StopPowerup();
             } 
         }
     }
@@ -69,6 +70,7 @@ public class Ball : MonoBehaviour                                             //
                 break;
             
             case GameStateManager.GameState.win:
+                speed += speedIncrease;
                 ResetBall();
                 break;
             
@@ -80,7 +82,7 @@ public class Ball : MonoBehaviour                                             //
         }
     }
     
-    public void LaunchBall()                                                //Launching Ball randomly left or right
+    public void LaunchBall()
     {
         if (myRigidbody2D.velocity == Vector2.zero)
         {
@@ -88,10 +90,10 @@ public class Ball : MonoBehaviour                                             //
         }
     }
 
-    public void ResetBall()                                                  //Resets Ball to starting Velocity and Position
+    public void ResetBall()
     {
-        transform.position = bStart;
-        myRigidbody2D.velocity = bvStart;
+        transform.position = bposStart;
+        myRigidbody2D.velocity = bvelStart;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,7 +114,7 @@ public class Ball : MonoBehaviour                                             //
             
             myRigidbody2D.velocity = myRigidbody2D.velocity * speedMultiplier;
             
-            float hitdistance = transform.position.x - collision.transform.position.x;                                  //Improved Ball Bounce Patterns
+            float hitdistance = transform.position.x - collision.transform.position.x;
             
             float nHitdistance = hitdistance / collision.transform.localScale.x;
             
@@ -147,32 +149,52 @@ public class Ball : MonoBehaviour                                             //
             if (destroyCount == powerupCount)
             {
                 PowerupActive?.Invoke(true);
-                
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, explosionSize, Vector2.zero, explosionSize, brickMask);
 
-                GetComponent<SpriteRenderer>().color = Color.red;
-                
-                foreach (var hit in hits)
+                powerupActive = true;
+
+                if (powerupActive)
                 {
-                    hit.collider.gameObject.GetComponent<Brick>().ApplyDamage();
+                    RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, explosionSize, Vector2.zero, explosionSize, brickMask);
+
+                    GetComponent<SpriteRenderer>().color = Color.red;
+                
+                    foreach (var hit in hits)
+                    {
+                        hit.collider.gameObject.GetComponent<Brick>().ApplyDamage();
+                    } 
                 }
-               
                 powerupTimer = powerupDuration;
                 timerStart = true;
                 print("start");
-                
             }
+            
+            if (powerupActive)
+            {
+                PowerupHit?.Invoke(transform.position);
+            }  
         }
 
         if (collision.collider.CompareTag("Finish"))
         {
-            OnBallCollision.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
-            PowerupActive?.Invoke(false);
+            OnBallCollision?.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
+            powerupActive = false;
+            StopPowerup();
+           
         }
 
         if (collision.collider.CompareTag("Wall"))
         {
-            OnBallCollision.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
+            OnBallCollision?.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
         }
+    }
+
+    private void StopPowerup()
+    {
+        PowerupActive?.Invoke(false);
+        print("stop");
+        GetComponent<SpriteRenderer>().color = Color.white;
+        timerStart = false;
+        powerupTimer = 0;
+        destroyCount = 0;  
     }
 }   

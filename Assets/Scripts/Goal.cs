@@ -9,6 +9,7 @@ public class Goal : MonoBehaviour
     public GameObject text1;
     public int lives = 5;
     private int startlives;
+    private int levelCleared = 0;
     private void Awake()
     {
         startlives = lives;
@@ -24,6 +25,7 @@ public class Goal : MonoBehaviour
     }
     private void OnGameStateChanged(GameStateManager.GameState targetstate)
     {
+        
         switch (targetstate)
         {
             case GameStateManager.GameState.ready:
@@ -37,12 +39,15 @@ public class Goal : MonoBehaviour
                 break;
             
             case GameStateManager.GameState.win:
+                levelCleared++;
+                textRef1.text = "You Win! \n Level cleared:" + levelCleared + "\n Press Space to Continue";
                 text1.SetActive(true);
-                lives = startlives; 
+                lives++; 
                 break;
             
             case GameStateManager.GameState.lose:
                 text0.SetActive(true);
+                levelCleared = 0;
                 lives = startlives; 
                 break;
             
