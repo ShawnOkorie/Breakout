@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
 {
     public delegate void BallDelegate(Vector2 ballhit, string what);
     public event BallDelegate OnBallCollision;
-    public delegate void PowerUpDelegate(bool isActive);
+    public delegate bool PowerUpDelegate(bool isActive);
     public event PowerUpDelegate PowerupActive;
     public delegate void ExplosionDelegate(Vector2 ballLocation);
     public event ExplosionDelegate PowerupHit;
@@ -48,6 +48,11 @@ public class Ball : MonoBehaviour
             {
                 StopPowerup();
             } 
+        }
+
+        if (myRigidbody2D.velocity.magnitude <= 10f)
+        {
+            myRigidbody2D.velocity *= speed;
         }
     }
 
@@ -181,12 +186,6 @@ public class Ball : MonoBehaviour
             OnBallCollision?.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        throw new NotImplementedException();
-    }
-
     private void StopPowerup()
     {
         PowerupActive?.Invoke(false);

@@ -30,21 +30,27 @@ public class BallEffects : MonoBehaviour
     
    public void triggerExplosion(Vector2 ballLocation)
    {
-      transform.position = myBall.transform.position;
-      explosionAnimation = Instantiate(explosionPrefab, ballLocation, Quaternion.identity);
-      Destroy(explosionAnimation.gameObject, delay);
+      if (CheckPowerupState(true))
+      {
+         transform.position = myBall.transform.position;
+         explosionAnimation = Instantiate(explosionPrefab, ballLocation, Quaternion.identity);
+         Destroy(explosionAnimation.gameObject, delay);
+      }
    }
-   private void CheckPowerupState(bool isActive)
+   private bool CheckPowerupState(bool isActive)
    {
       if (isActive == true)
       {
          particleSystem.Play();
+         return true;
       }
 
       if (isActive == false)
       {
          particleSystem.Stop();
+         return false;
       }
+      return default;
    }
 
       

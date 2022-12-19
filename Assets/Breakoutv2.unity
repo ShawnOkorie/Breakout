@@ -5564,11 +5564,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563824, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.42
+      value: -5.15
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563824, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.28
+      value: 4.24
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563824, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5632,7 +5632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563825, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: xDistance
-      value: 1.35
+      value: 1.29
       objectReference: {fileID: 0}
     - target: {fileID: 977778831408563825, guid: 0fa30782a3fe8f54686d8f34ecb569d0, type: 3}
       propertyPath: yDistance
@@ -6438,7 +6438,7 @@ MonoBehaviour:
   speedMultiplier: 1.01
   speed: 8
   speedIncrease: 1
-  powerupCount: 1
+  powerupCount: 5
   powerupDuration: 5
   explosionSize: 1
   brickMask:
