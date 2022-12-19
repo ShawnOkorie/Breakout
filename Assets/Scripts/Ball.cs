@@ -102,6 +102,8 @@ public class Ball : MonoBehaviour                                             //
         {
             OnBallCollision?.Invoke(transform.position, collision.gameObject.tag);
             ResetBall();
+            powerupActive = false;
+            StopPowerup();
         }
     }
 
@@ -174,18 +176,15 @@ public class Ball : MonoBehaviour                                             //
             }  
         }
 
-        if (collision.collider.CompareTag("Finish"))
-        {
-            OnBallCollision?.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
-            powerupActive = false;
-            StopPowerup();
-           
-        }
-
         if (collision.collider.CompareTag("Wall"))
         {
             OnBallCollision?.Invoke(collision.GetContact(0).point, collision.gameObject.tag);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        throw new NotImplementedException();
     }
 
     private void StopPowerup()
