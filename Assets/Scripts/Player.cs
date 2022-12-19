@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
             
             case GameStateManager.GameState.playing:
                 
-                moveInput.x = Input.GetAxisRaw("Horizontal");                                   //Player Movement
+                moveInput.x = Input.GetAxisRaw("Horizontal");
                                 
                 transform.position += (Vector3) moveInput * (speed * Time.deltaTime);
                 break;

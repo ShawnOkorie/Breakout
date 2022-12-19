@@ -56,7 +56,7 @@ public class BrickSpawn : MonoBehaviour
         }
     }
     
-    public void Spawn()                                                            //Spawns Bricks and chooses a random colour for every row 
+    public void Spawn()
     {
         FillColorList();
         
@@ -113,7 +113,7 @@ public class BrickSpawn : MonoBehaviour
         return true;
     }
     
-    public void DestroyBricks()                                                 //Deletes every Brick
+    public void DestroyBricks()
     {
         FillColorList();
         

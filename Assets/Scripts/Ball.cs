@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Ball : MonoBehaviour                                             //Behaviour of the Ball
+public class Ball : MonoBehaviour
 {
     public delegate void BallDelegate(Vector2 ballhit, string what);
     public event BallDelegate OnBallCollision;

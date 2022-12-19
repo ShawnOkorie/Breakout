@@ -50,8 +50,6 @@ public class Goal : MonoBehaviour
                 levelCleared = 0;
                 lives = startlives; 
                 break;
-            
-            default: break;
         }
     }
     private void OnTriggerEnter2D(Collider2D col)
@@ -63,9 +61,8 @@ public class Goal : MonoBehaviour
             lives--;
             textRef0.text = "Press Space to Start \n \n Lives:" + lives;
         }
-        
-        
-        if (lives <= 0)                                                         //Restart the Game when out of Lives
+
+        if (lives <= 0)   
         {
             GameStateManager.Instance.SetCurrentState(GameStateManager.GameState.lose);
         }
